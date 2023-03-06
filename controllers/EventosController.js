@@ -2,7 +2,12 @@ import Evento from "../models/EventosModel.js";
 
 export const getEventos = async(req, res) => {
     try {
-        const eventos = await Evento.findAll();
+        const eventos = await Evento.findAll({
+            attributes: ['id', 'nombre', 'fk_recinto', 'fechaHora'],
+            order: [
+                ['fechaHora', 'DESC']
+            ]
+        });
         res.json(eventos);
     } catch (error) {
         res.json({

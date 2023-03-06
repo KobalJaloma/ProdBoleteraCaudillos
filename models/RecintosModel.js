@@ -11,6 +11,18 @@ const Recinto = db.define('recintos', {
     estatus: {
         type : DataTypes.INTEGER
     },
+    cordenadas: {
+        type: DataTypes.STRING
+    },
+    ciudad: {
+        type: DataTypes.STRING
+    },
+    estado: {
+        type: DataTypes.STRING
+    },
+    pais: {
+        type: DataTypes.STRING
+    }
 });
 
 export default Recinto;

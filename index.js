@@ -1,17 +1,43 @@
 import express from 'express';
 import cors from 'cors';
-import { usuarios } from './routes/UserRoute.js';
-import { eventos } from './routes/EventosRoutes.js'
 import db from './config/db.js';
+import history from "connect-history-api-fallback";
+import path from "path";
+
+//ROUTERS
+import { usuarios } from './routes/UserRoute.js';
+import { eventos } from './routes/EventosRoutes.js';
+import { recintos } from "./routes/RecintosRoutes.js";
+import { ubicaciones } from './routes/UbicacionesRoutes.js';
+import { tickets } from './routes/TicketsRoutes.js';
+import { permisos } from "./routes/PermisosRoutes.js";
+import { Qrs } from './routes/QrRoutes.js';
+import { reportes } from './routes/ReportesRoutes.js';
+import { email } from './routes/MailerRoutes.js';
+import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
+
+
 
 //IMPLEMENTS
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+//MIDDLEWARE
+// app.use(history()); 
+// app.use('/', express.static('./public/'));
+
 //ROUTES WITH CONTROLLERS
-app.use('/usuarios', usuarios);
-app.use('/eventos', eventos);
+app.use('/api/usuarios', usuarios);
+app.use('/api/eventos', eventos);
+app.use('/api/recintos', recintos);
+app.use('/api/ubicaciones', ubicaciones);
+app.use('/api/tickets', tickets);
+app.use('/api/permisos', permisos);
+app.use('/api/generarQr', Qrs);
+app.use('/api/reportes', reportes);
+app.use('/api/email', email);
+app.use('/api/ticketsEnvios', ticketsEnvios);
 
 //VERIFICAR ESTATUS DE LA CONEXION
 try {
@@ -22,7 +48,7 @@ try {
 }
 
 //TEST DE RUTAS
-app.get('/', (req, res) => {
+app.get('/api/test', (req, res) => {
     res.send('Hello world');
 });
 

@@ -4,7 +4,12 @@ import {encriptarPassword, evaluarEncriptacion} from "../helpers/passwordEncript
 
 export const getUsuarios = async(req, res)=> {
     try {
-        const usuarios = await Usuario.findAll();
+        const usuarios = await Usuario.findAll({
+            attributes: ['id', "nombre", "nombreUsuario", "fk_permiso"],
+            where: {
+                estatus: 1
+            }
+        });
         res.json(usuarios);
 
     } catch (error) {
@@ -24,6 +29,34 @@ export const getUsuariosById = async(req, res) => {
         console.log(error.message);
     }
 };
+
+export const updatePermisosUsuario = async(req, res) => {
+    try {
+        const { permiso, idUsuario } = req.body;
+
+        const usuario = await Usuario.update(
+            {
+                fk_permiso: req.body.permiso
+            },
+            {
+                where: {
+                    id: idUsuario
+                }
+            }
+        );
+
+        res.json({
+            "message" : 'Se Modifico Correctamente',
+            "estatus" : "OK"
+        });
+        
+    } catch (error) {
+        res.json({
+            "message" : 'Hubo un problema en la actualizacion del usuario',
+            "estatus" : "FAIL"
+        });
+    }
+}
 
 export const createUsuario = async(req, res) => {
     try {
