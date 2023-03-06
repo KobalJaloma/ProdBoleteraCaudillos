@@ -24,8 +24,8 @@ app.use(cors());
 app.use(express.json());
 
 //MIDDLEWARE
-// app.use(history()); 
-// app.use('/', express.static('./public/'));
+app.use(history()); 
+app.use('/', express.static('./public/'));
 
 //ROUTES WITH CONTROLLERS
 app.use('/api/usuarios', usuarios);
