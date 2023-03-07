@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import db from './config/db.js';
-import history from "connect-history-api-fallback";
-import path from "path";
+import serverless from 'serverless-http';
+// import history from "connect-history-api-fallback";
+// import path from "path";
+import path, {dirname} from 'path';
 
 //ROUTERS
 import { usuarios } from './routes/UserRoute.js';
@@ -15,6 +17,8 @@ import { Qrs } from './routes/QrRoutes.js';
 import { reportes } from './routes/ReportesRoutes.js';
 import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
+import { fileURLToPath } from 'url'
+
 
 
 
@@ -24,8 +28,10 @@ app.use(cors());
 app.use(express.json());
 
 //MIDDLEWARE
-app.use(history()); 
-app.use('/', express.static('./public/'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/', express.static(path.resolve(__dirname, './public')));
 
 //ROUTES WITH CONTROLLERS
 app.use('/api/usuarios', usuarios);
