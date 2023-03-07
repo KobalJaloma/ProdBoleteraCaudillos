@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import db from './config/db.js';
-import serverless from 'serverless-http';
+// import serverless from 'serverless-http';
 // import history from "connect-history-api-fallback";
 // import path from "path";
 import path, {dirname} from 'path';
@@ -17,10 +17,9 @@ import { Qrs } from './routes/QrRoutes.js';
 import { reportes } from './routes/ReportesRoutes.js';
 import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
-import { fileURLToPath } from 'url'
 
 
-
+import { fileURLToPath } from 'url';
 
 //IMPLEMENTS
 const app = express();
