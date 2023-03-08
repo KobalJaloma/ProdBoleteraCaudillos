@@ -59,5 +59,5 @@ app.get('/api/test', (req, res) => {
 });
 
 //LISTENER DE EXPRESS
-app.listen(80, () => 
+app.listen(8000, () => 
     console.log('server up and running in https://localhost:8000/'));
