@@ -31,6 +31,23 @@ export const getTicketInfo = async(req, res) => {
         });
     }
 }
+export const getTicketsEvento = async(req, res) => {
+
+    
+    try {
+        const tickets = await Ticket.findAll({
+            attributes: ["id", "codigo", "estatus"],
+            where: {
+                fk_evento: req.params.id
+            }
+        });
+        res.json(tickets);
+    } catch (error) {
+        res.json({
+            "error" : error
+        });
+    }
+}
 
 export const getTicketsEnvio = async(req, res) => {
     try {

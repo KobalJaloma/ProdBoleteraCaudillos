@@ -18,3 +18,10 @@ export const crearQr = async(informacion = test)=> {
     return codigo;
 }
 
+export const crearQrPng = async(informacion = test)=> {
+    
+    const codigo  = await QRCode.toDataURL(informacion)
+    
+    return codigo;
+}
+

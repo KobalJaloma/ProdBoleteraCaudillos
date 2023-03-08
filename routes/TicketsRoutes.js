@@ -1,12 +1,13 @@
 import express from 'express';
 
-import {createTickets, getTickets, getTicketsEnvio, getTicketInfo, updateTicketsEnvio, updateTicketsQuemar} from '../controllers/TicketController.js';
+import {createTickets, getTickets, getTicketsEnvio, getTicketInfo, getTicketsEvento, updateTicketsEnvio, updateTicketsQuemar} from '../controllers/TicketController.js';
 
 export const tickets = express.Router();
 
 tickets.get('/', getTickets);
+tickets.get('/ticket/', getTicketInfo);
+tickets.get('/evento/:id', getTicketsEvento);
 tickets.post('/ticket/', getTicketInfo);
-tickets.get('/envios/:id', getTicketsEnvio);
 
 //actualizaciones
 tickets.put('/envios/actualizarEstado', updateTicketsEnvio);

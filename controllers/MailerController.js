@@ -3,11 +3,10 @@ import { transporter } from '../config/mailer.js';
 export const sendEmail = async(req, res) => {
 
     const { email, receptor, remitente, html, informacion, asunto } = req.body;
-
-
+    
     try {
         const info = await transporter.sendMail({
-            from: `${remitente}"" <kiritouzumaki119@gmail.com>`, // sender address
+            from: `${remitente}"" <cortesiascaudillos@gmail.com>`, // sender address
             to: email, // list of receivers
             subject: `Hola ${receptor} ✔`, // Subject line
             text: informacion, // plain text body
