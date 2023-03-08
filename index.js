@@ -31,7 +31,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use('/', express.static(path.resolve(__dirname, './public')));
-app.use('/*', express.static(path.resolve(__dirname, './public')));
+
 
 //ROUTES WITH CONTROLLERS
 app.use('/api/usuarios', usuarios);
