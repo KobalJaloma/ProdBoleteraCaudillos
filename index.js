@@ -46,8 +46,8 @@ app.use('/api/ticketsEnvios', ticketsEnvios);
 
 //VERIFICAR ESTATUS DE LA CONEXION
 try {
-    await db.authenticate();
-    console.log('Conexion exitosa');
+    db.authenticate()
+    .then( response => console.log('Conexion exitosa'));
 } catch (error) {
     console.log(`el error de conexion es ${error}`);
 }
