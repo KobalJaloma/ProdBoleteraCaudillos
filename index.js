@@ -31,6 +31,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use('/', express.static(path.resolve(__dirname, './public')));
+app.use('/*', express.static(path.resolve(__dirname, './public')));
 
 //ROUTES WITH CONTROLLERS
 app.use('/api/usuarios', usuarios);
@@ -58,5 +59,5 @@ app.get('/api/test', (req, res) => {
 });
 
 //LISTENER DE EXPRESS
-app.listen(8000, () => 
+app.listen(80, () => 
     console.log('server up and running in https://localhost:8000/'));
