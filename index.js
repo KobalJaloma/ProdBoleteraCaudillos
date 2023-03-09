@@ -1,10 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import db from './config/db.js';
-// import serverless from 'serverless-http';
-// import history from "connect-history-api-fallback";
-// import path from "path";
-import path, {dirname} from 'path';
+import http from "http";
+import https from "https";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 //ROUTERS
 import { usuarios } from './routes/UserRoute.js';
@@ -19,18 +20,27 @@ import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
 
 
-import { fileURLToPath } from 'url';
+
+const credentials = {
+    key: '',
+    cert: '',
+    ca: ''
+}
 
 //IMPLEMENTS
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 //MIDDLEWARE
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 app.use('/', express.static(path.resolve(__dirname, './public')));
+//token de verif
+app.use('/.well-known/acme-challenge/AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI', (req, res) => {
+    res.send('AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI.EFZKts6_MGJTQ9yIM_Z1Nj-wabvsb2ZXuTo8uLh_hR4');
+})
 
 
 //ROUTES WITH CONTROLLERS
@@ -45,6 +55,11 @@ app.use('/api/reportes', reportes);
 app.use('/api/email', email);
 app.use('/api/ticketsEnvios', ticketsEnvios);
 
+//TEST DE RUTAS
+app.get('/api/test', (req, res) => {
+    res.send('Hello world');
+});
+
 //VERIFICAR ESTATUS DE LA CONEXION
 try {
     db.authenticate()
@@ -53,11 +68,10 @@ try {
     console.log(`el error de conexion es ${error}`);
 }
 
-//TEST DE RUTAS
-app.get('/api/test', (req, res) => {
-    res.send('Hello world');
-});
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
-//LISTENER DE EXPRESS
-app.listen(8000, () => 
-    console.log('server up and running in https://localhost:8000/'));
+
+httpServer.listen(80, () => {
+    console.log('Escuchando puerto 80');
+});
