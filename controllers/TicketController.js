@@ -36,7 +36,7 @@ export const getTicketsEvento = async(req, res) => {
     
     try {
         const tickets = await Ticket.findAll({
-            attributes: ["id", "codigo", "estatus"],
+            
             where: {
                 fk_evento: req.params.id
             }
