@@ -48,7 +48,7 @@ app.use('/api/usuarios', usuarios);
 app.use('/api/eventos', eventos);
 app.use('/api/recintos', recintos);
 app.use('/api/ubicaciones', ubicaciones);
-app.use('/api/tickets', tickets);
+app.use('/api/tickets', tickets);   
 app.use('/api/permisos', permisos);
 app.use('/api/generarQr', Qrs);
 app.use('/api/reportes', reportes);
@@ -60,6 +60,9 @@ app.get('/api/test', (req, res) => {
     res.send('Hello world');
 });
 
+// app.use('*', ()=> {
+    
+// })
 //VERIFICAR ESTATUS DE LA CONEXION
 try {
     db.authenticate()
