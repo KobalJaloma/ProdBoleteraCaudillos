@@ -6,6 +6,8 @@ import https from "https";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+//Variables de entorno
+import { config } from './config.js';
 
 //ROUTERS
 import { usuarios } from './routes/UserRoute.js';
@@ -20,30 +22,30 @@ import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
 
 
-
 const credentials = {
     key: '',
     cert: '',
     ca: ''
 }
 
-//IMPLEMENTS
+//app config
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 
-//MIDDLEWARE
+//importar el dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+//MIDDLEWARE
 app.use('/', express.static(path.resolve(__dirname, './public')));
 //token de verif
 app.use('/.well-known/acme-challenge/AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI', (req, res) => {
     res.send('AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI.EFZKts6_MGJTQ9yIM_Z1Nj-wabvsb2ZXuTo8uLh_hR4');
 })
 
-
-//ROUTES WITH CONTROLLERS
+//RUTAS DE LOS CONTROLADORES
 app.use('/api/usuarios', usuarios);
 app.use('/api/eventos', eventos);
 app.use('/api/recintos', recintos);
@@ -59,10 +61,14 @@ app.use('/api/ticketsEnvios', ticketsEnvios);
 app.get('/api/test', (req, res) => {
     res.send('Hello world');
 });
-
+//REDIRECCIONAR EN RUTAS DESCONOCIDAS
+app.get('*', function(req, res){
+    res.status(404).redirect('/');
+});
 // app.use('*', ()=> {
     
 // })
+
 //VERIFICAR ESTATUS DE LA CONEXION
 try {
     db.authenticate()
@@ -71,11 +77,12 @@ try {
     console.log(`el error de conexion es ${error}`);
 }
 
+//PROTOCOLOS DE LA WEB
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
-app.listen(8000, (res, req) => {
-    console.log('Escuchando el puerto 8000 para el API');
+app.listen(config.PORT, (res, req) => {
+    console.log(`Escuchando el puerto ${config.PORT} para el API`);
 });
 
 httpServer.listen(80, () => {
