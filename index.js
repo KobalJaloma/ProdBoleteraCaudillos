@@ -71,6 +71,9 @@ try {
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
+app.listen(8000, (res, req) => {
+    console.log('Escuchando el puerto 8000 para el API');
+});
 
 httpServer.listen(80, () => {
     console.log('Escuchando puerto 80');
