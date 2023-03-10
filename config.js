@@ -7,12 +7,10 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log(__dirname + " Este es el dirname");
-
 dotenv.config({
     path: path.resolve(__dirname, process.env.NODE_ENV + '.env')
 });
-
+console.log("Este es el usuario " + process.env.DB_NAME);
 // config.js
 export const config = {
     NODE_ENV: process.env.NODE_ENV || 'development',
