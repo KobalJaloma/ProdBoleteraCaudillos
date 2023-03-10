@@ -59,21 +59,20 @@ app.use('/api/ticketsEnvios', ticketsEnvios);
 
 //TEST DE RUTAS
 app.get('/api/test', (req, res) => {
-    res.send('Hello world');
+    res.send(`'Hello world' ${config.DB_NAME} ${config.DB_USER} ${config.DB_PASSWORD}`);
 });
 //REDIRECCIONAR EN RUTAS DESCONOCIDAS
 app.get('*', function(req, res){
     res.status(404).redirect('/');
 });
 // app.use('*', ()=> {
-    console.log(config.DB_NAME + " " +config.DB_USER + " " +config.DB_PASSWORD);
-// })
-
-//VERIFICAR ESTATUS DE LA CONEXION
-try {
-    db.authenticate()
-    .then( response => console.log('Conexion exitosa'));
-} catch (error) {
+    // })
+    
+    //VERIFICAR ESTATUS DE LA CONEXION
+    try {
+        db.authenticate()
+        .then( response => console.log('Conexion exitosa'));
+    } catch (error) {
     console.log(`el error de conexion es ${error}`);
 }
 
