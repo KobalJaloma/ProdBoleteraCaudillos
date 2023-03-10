@@ -122,7 +122,7 @@ export const createTickets = async(req, res) => {
         
         for (let index = 1; index <= cantidad; index++) {
             //generacion de clave de ticket
-            const ticketCode = `${evento}?@${index}`;
+            const ticketCode = `${evento}?@${index+4000}`;
             const payload = {
                 codigo: ticketCode,
                 estatus: 1,
