@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config({
     path: path.resolve(__dirname, process.env.NODE_ENV + '.env')
 });
-console.log("Este es el usuario " + process.env.DB_NAME);
+console.log("Este es el usuario " + process.env);
 // config.js
 export const config = {
     NODE_ENV: process.env.NODE_ENV || 'development',
