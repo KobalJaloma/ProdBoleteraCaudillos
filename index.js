@@ -66,7 +66,7 @@ app.get('*', function(req, res){
     res.status(404).redirect('/');
 });
 // app.use('*', ()=> {
-    
+    console.log(config.DB_NAME + " " +config.DB_USER + " " +config.DB_PASSWORD);
 // })
 
 //VERIFICAR ESTATUS DE LA CONEXION
