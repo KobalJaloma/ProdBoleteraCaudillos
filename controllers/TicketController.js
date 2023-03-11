@@ -66,6 +66,31 @@ export const getTicketsEnvio = async(req, res) => {
     }
 }
 
+export const getTicketsByUsuarioEscaneado = async(req, res) => {
+    const atributos = req.query.atributos.split(',');
+    const evento = req.query.evento;
+    const usuario = req.query.usuario;
+    //?atributos=id,codigo,updatedAt&evento=11&usuario=0
+    const payload = {
+        attributes: [...atributos],
+            where: {
+                fk_evento: evento || '*',
+                fk_usuarioEscaneado: usuario || '*',
+                estatus: 0
+            }
+    }
+
+    try {
+        const tickets = await Ticket.findAll(payload);
+        res.json(tickets);
+    } catch (error) {
+        res.json({
+            estatus: 'FAIL',
+            message: error
+        });
+    }
+}
+
 export const updateTicketsEnvio = async(req, res) => {
     try {
         const ticket = await Ticket.update(
