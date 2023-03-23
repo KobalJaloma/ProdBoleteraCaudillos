@@ -1,5 +1,6 @@
 import Ticket from "../models/TicketModel.js";
 import Evento from "../models/EventosModel.js";
+import { Sequelize } from "sequelize";
 
 export const getTickets = async(req, res) => {
     try {
@@ -33,10 +34,10 @@ export const getTicketInfo = async(req, res) => {
 }
 export const getTicketsEvento = async(req, res) => {
 
-    
+
     try {
         const tickets = await Ticket.findAll({
-            
+
             where: {
                 fk_evento: req.params.id
             }
@@ -55,7 +56,8 @@ export const getTicketsEnvio = async(req, res) => {
             attributes: ["id", "codigo", "estatus", "fk_usuarioCap" ],
             where: {
                 estatus_envio: 1, //MIENTRAS ESTEN DISPONIBLES
-                fk_evento: req.params.id
+                estatus: 1,
+                fk_evento: req.params.evento
             }
         });
         res.json(tickets);
@@ -144,10 +146,28 @@ export const createTickets = async(req, res) => {
     //SE NECESITA ENVIAR UN POST CON CANTIDAD Y EVENTO PARA LA GENERACION MASIVA
     try {
         const {  cantidad, evento, usuario } = req.body;
-        
+
+        const existencia = await Ticket.count({ where: {fk_evento: evento} }); //ver cuantos tickets hay en existencia
+        const simbolosBoleto = '?@'; 
+
+        //Extreaer el ticket de mayor valor por codigo
+        let codigoActual = 0;
+        if(existencia != 0) {
+            const codigoRes = await Ticket.findAll({
+                attributes: ['codigo'],
+                where: {
+                    fk_evento: evento
+                },
+                order: [['id', 'desc']],
+                limit: 1
+            });
+            const numActual = parseInt(codigoRes[0].codigo.substr( evento.toString().length + simbolosBoleto.length )); //obtener el numero de ticket
+            codigoActual = numActual;
+        }
+
         for (let index = 1; index <= cantidad; index++) {
             //generacion de clave de ticket
-            const ticketCode = `${evento}?@${index+4000}`;
+            const ticketCode = `${evento}${simbolosBoleto}${ existencia != 0 ? index + codigoActual : index }`; //si hay tickets en existencia se guardaran desde 0 si no, desde el ultimo codigo unico en adelante
             const payload = {
                 codigo: ticketCode,
                 estatus: 1,
@@ -166,6 +186,6 @@ export const createTickets = async(req, res) => {
         res.json({
             "message" : "Hubo Un Problema En La Creacion Del Ticket",
             "estatus" : "FAIL"
-        });  
+        });
     }
 }

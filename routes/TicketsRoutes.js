@@ -8,7 +8,7 @@ tickets.get('/', getTickets);
 tickets.get('/ticket/', getTicketInfo);
 tickets.get('/evento/:id', getTicketsEvento);
 tickets.get('/escaneado', getTicketsByUsuarioEscaneado);
-tickets.post('/ticket/', getTicketInfo);
+tickets.get('/envios/disponibles/:evento', getTicketsEnvio); //regresa los tickets disponibles para el envio
 
 //actualizaciones
 tickets.put('/envios/actualizarEstado', updateTicketsEnvio);
