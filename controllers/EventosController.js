@@ -1,9 +1,15 @@
 import Evento from "../models/EventosModel.js";
 
 export const getEventos = async(req, res) => {
+    var atributos = req.query.atributos;
+    //evalua si no es al;gun valor null o undefined
+    if(atributos) {
+        atributos = atributos.split(',');
+    }
+
     try {
         const eventos = await Evento.findAll({
-            attributes: ['id', 'nombre', 'fk_recinto', 'fechaHora'],
+            attributes: atributos || ['id', 'nombre', 'fk_recinto', 'fechaHora'],
             order: [
                 ['fechaHora', 'DESC']
             ]

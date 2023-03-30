@@ -1,6 +1,7 @@
 import express from 'express';
 
-import {createTickets, getTickets, getTicketsEnvio, getTicketInfo, getTicketsEvento, getTicketsByUsuarioEscaneado, updateTicketsEnvio, updateTicketsQuemar} from '../controllers/TicketController.js';
+import {createTickets, getTickets, getTicketsEnvio, getTicketInfo, getTicketsEvento, 
+    getTicketsByUsuarioEscaneado, updateTicketsEnvio, updateTicketsQuemar} from '../controllers/TicketController.js';
 
 export const tickets = express.Router();
 

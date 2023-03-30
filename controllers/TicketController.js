@@ -74,7 +74,7 @@ export const getTicketsByUsuarioEscaneado = async(req, res) => {
     const usuario = req.query.usuario;
     //?atributos=id,codigo,updatedAt&evento=11&usuario=0
     const payload = {
-        attributes: [...atributos],
+        attributes: atributos || '*',
             where: {
                 fk_evento: evento || '*',
                 fk_usuarioEscaneado: usuario || '*',
