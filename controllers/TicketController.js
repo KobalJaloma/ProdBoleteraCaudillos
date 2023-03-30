@@ -67,12 +67,36 @@ export const getTicketsEnvio = async(req, res) => {
         });
     }
 }
+export const getTicketsEscaneados = async(req, res) => {
+    const atributos = req.query.atributos.split(',');
+    const evento = req.query.evento;
+    //?atributos=id,codigo,updatedAt&evento=11&usuario=0
+
+    const payload = {
+        attributes: atributos || '*',
+            where: {
+                fk_evento: evento || '*',
+                estatus: 0
+            }
+    }
+
+    try {
+        const tickets = await Ticket.findAll(payload);
+        res.json(tickets);
+    } catch (error) {
+        res.json({
+            estatus: 'FAIL',
+            message: error
+        });
+    }
+}
 
 export const getTicketsByUsuarioEscaneado = async(req, res) => {
     const atributos = req.query.atributos.split(',');
     const evento = req.query.evento;
     const usuario = req.query.usuario;
     //?atributos=id,codigo,updatedAt&evento=11&usuario=0
+
     const payload = {
         attributes: atributos || '*',
             where: {
@@ -92,6 +116,7 @@ export const getTicketsByUsuarioEscaneado = async(req, res) => {
         });
     }
 }
+
 
 export const updateTicketsEnvio = async(req, res) => {
     try {
