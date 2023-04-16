@@ -3,11 +3,11 @@ import { Empresa } from "../models/EmpresasModel.js";
 export const getEmpresas = async(req, res) => {
     const querys = req.query.atributos; // array in string
     var atributos = [];
-    if(querys != '' || querys != null) {
-        atributos = querys.split(',');
-    }
     
     try {
+        if(querys != '' || querys != null) {
+            atributos = querys.split(',');
+        }
         const empresas = await Empresa.findAll({
             attributes: atributos,
         });

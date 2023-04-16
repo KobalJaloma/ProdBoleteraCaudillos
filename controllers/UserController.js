@@ -33,10 +33,10 @@ export const getUsuariosById = async(req, res) => {
 export const updatePermisosUsuario = async(req, res) => {
     try {
         const { permiso, idUsuario } = req.body;
-
+        console.log(permiso, idUsuario);
         const usuario = await Usuario.update(
             {
-                fk_permiso: req.body.permiso
+                fk_permiso: permiso
             },
             {
                 where: {

@@ -11,6 +11,9 @@ const Evento = db.define('eventos', {
     fk_recinto: {
         type : DataTypes.BIGINT
     },
+    fk_empresa: {
+        type : DataTypes.BIGINT
+    },
     estatus : {
         type : DataTypes.INTEGER
     }
