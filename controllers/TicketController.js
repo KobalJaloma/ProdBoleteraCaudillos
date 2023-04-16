@@ -18,11 +18,12 @@ export const getTickets = async(req, res) => {
 export const getTicketInfo = async(req, res) => {
 
     console.log(req.body);
+
     try {
         const tickets = await Ticket.findAll({
             attributes: ["id", "codigo", "estatus"],
             where: {
-                codigo: req.body.codigo
+                codigo: req.query.codigo
             }
         });
         res.json(tickets);
