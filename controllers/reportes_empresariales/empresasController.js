@@ -3,7 +3,9 @@ import Empresa from "../../models/reportes_empresariales/EmpresasModel.js";
 
 export const getEmpresas = async(req, res) => {
     try {
-        const atributos = req.query.atributos;
+        const querys = req.query.atributos;
+        const atributos = querys.split(',');
+        console.log(querys);
         if(!atributos) {
             res.json({
                 estatus: 'ERROR',
@@ -14,6 +16,8 @@ export const getEmpresas = async(req, res) => {
         const empresas = Empresa.findAll({
             attributes: atributos
         });
+
+        res.json(empresas);
         
     } catch (error) {
         res.json({
