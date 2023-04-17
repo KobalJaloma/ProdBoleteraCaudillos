@@ -6,13 +6,13 @@ export const getEmpresas = async(req, res) => {
         const querys = req.query.atributos;
         console.log(querys);
         const atributos = querys.split(',');
-        if(!atributos) {
-            res.json({
-                estatus: 'ERROR',
-                message: 'No se encuentran los atributos en la url'
-            })
-            return;
-        }
+        // if(!atributos) {
+        //     res.json({
+        //         estatus: 'ERROR',
+        //         message: 'No se encuentran los atributos en la url'
+        //     })
+        //     return;
+        // }
         const empresas = Empresa.findAll({
             attributes: atributos
         });
