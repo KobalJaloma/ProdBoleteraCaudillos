@@ -19,6 +19,7 @@ export const config = {
 
     //db config 
     DB_NAME: process.env.DB_NAME || 'boletera',
+    DB_NAME_REPORTES_EMPRESARIALES: process.env.DB_NAME_REPORTES_EMPRESARIALES || 'REPORTES_EMPRESARIALES',
     DB_USER: process.env.DB_USER || 'procesos',
     DB_PASSWORD: process.env.DB_PASSWORD || '2xK#iz&Gl715',
 

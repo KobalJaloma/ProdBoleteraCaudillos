@@ -26,6 +26,11 @@ import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
 import { empresas } from './routes/EmpresasRoutes.js';
 
 
+//REPORTES EMPRESARIALES ROUTES
+import { empresarialesEmpresas } from "./routes/reportes_empresariales/EmpresasRoutes.js";
+
+
+
 const credentials = {
     key: '',
     cert: '',
@@ -79,6 +84,11 @@ app.use('/api/reportes', reportes);
 app.use('/api/email', email);
 app.use('/api/ticketsEnvios', ticketsEnvios);
 app.use('/api/empresas', empresas);
+
+//RUTAS DE REPORTES EMPRESARIALES
+app.use('/api/reportes_empresariales/empresas', empresarialesEmpresas);
+
+
 
 //TEST DE RUTAS
 app.get('/api/test', (req, res) => {
