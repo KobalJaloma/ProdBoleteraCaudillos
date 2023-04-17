@@ -1,10 +1,9 @@
-import Empresa from "../../models/reportes_empresariales/EmpresasModel.js";
+import Egreso from "../../models/reportes_empresariales/EgresosModel.js";
 
 
-export const getEmpresas = async(req, res) => {
+export const getEgresos = async(req, res) => {
     try {
         const querys = req.query.atributos;
-        console.log(querys);
         const atributos = querys.split(',');
         if(!atributos) {
             res.json({
@@ -13,11 +12,11 @@ export const getEmpresas = async(req, res) => {
             })
             return;
         }
-        const empresas = Empresa.findAll({
+        const egresos = Egreso.findAll({
             attributes: atributos
         });
 
-        res.json(empresas);
+        res.json(egresos);
         
     } catch (error) {
         res.json({

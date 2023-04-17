@@ -1,10 +1,9 @@
-import Empresa from "../../models/reportes_empresariales/EmpresasModel.js";
+import Sucursal from "../../models/reportes_empresariales/SucursalesModels.js";
 
 
-export const getEmpresas = async(req, res) => {
+export const getSucursales = async(req, res) => {
     try {
         const querys = req.query.atributos;
-        console.log(querys);
         const atributos = querys.split(',');
         if(!atributos) {
             res.json({
@@ -13,11 +12,11 @@ export const getEmpresas = async(req, res) => {
             })
             return;
         }
-        const empresas = Empresa.findAll({
+        const sucursales = Sucursal.findAll({
             attributes: atributos
         });
 
-        res.json(empresas);
+        res.json(sucursales);
         
     } catch (error) {
         res.json({
