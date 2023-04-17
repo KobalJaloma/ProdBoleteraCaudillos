@@ -4,8 +4,8 @@ import Empresa from "../../models/reportes_empresariales/EmpresasModel.js";
 export const getEmpresas = async(req, res) => {
     try {
         const querys = req.query.atributos;
-        const atributos = querys.split(',');
         console.log(querys);
+        const atributos = querys.split(',');
         if(!atributos) {
             res.json({
                 estatus: 'ERROR',
