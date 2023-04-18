@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import { reportes_empresariales } from "../../config/db.js";
+import reportesEmpresariales from "../../config/ReportesEmpresarialesDb.js";
 
-const Egreso_d = reportes_empresariales.define('egresos_d', {
+const Egreso_d = reportesEmpresariales.define('egresos_d', {
     id: {
         type: DataTypes.INTEGER
     },
@@ -16,5 +16,5 @@ const Egreso_d = reportes_empresariales.define('egresos_d', {
 export default Egreso_d ;
 
 (async()=> {
-    await reportes_empresariales.sync();
+    await reportesEmpresariales.sync();
 })();

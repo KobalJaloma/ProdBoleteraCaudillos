@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import { reportes_empresariales } from "../../config/db.js";
+import reportesEmpresariales from "../../config/ReportesEmpresarialesDb.js";
 
-const Empresa = reportes_empresariales.define('empresas', {
+const Empresa = reportesEmpresariales.define('empresas', {
     nombre: {
         type: DataTypes.STRING
     },
@@ -13,5 +13,5 @@ const Empresa = reportes_empresariales.define('empresas', {
 export default Empresa;
 
 (async()=> {
-    await reportes_empresariales.sync();
+    await reportesEmpresariales.sync();
 })();
