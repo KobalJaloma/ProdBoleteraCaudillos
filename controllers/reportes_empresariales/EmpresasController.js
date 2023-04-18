@@ -2,8 +2,8 @@ import Empresa from "../../models/reportes_empresariales/EmpresasModel.js";
 
 
 export const getEmpresas = async(req, res) => {
-    const querys = req.query.atributos;
     try {
+        const querys = req.query.atributos;
         console.log(querys);
         const atributos = querys.split(',');
         if(!atributos) {
