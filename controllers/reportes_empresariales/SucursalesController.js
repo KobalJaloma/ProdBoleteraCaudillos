@@ -12,7 +12,7 @@ export const getSucursales = async(req, res) => {
             })
             return;
         }
-        const sucursales = Sucursal.findAll({
+        const sucursales = await Sucursal.findAll({
             attributes: atributos
         });
 
