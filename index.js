@@ -29,6 +29,7 @@ import { empresas } from './routes/EmpresasRoutes.js';
 //REPORTES EMPRESARIALES ROUTES
 import { empresarialesEmpresas } from "./routes/reportes_empresariales/EmpresasRoutes.js";
 import { empresarialesSucursales } from "./routes/reportes_empresariales/SucursalesRoutes.js";
+import { empresarialesCuentaBancos } from "./routes/reportes_empresariales/Cuenta_bancosRoutes.js";
 
 
 
@@ -89,6 +90,7 @@ app.use('/api/empresas', empresas);
 //RUTAS DE REPORTES EMPRESARIALES
 app.use('/api/reportes_empresariales/empresas', empresarialesEmpresas);
 app.use('/api/reportes_empresariales/sucursales', empresarialesSucursales);
+app.use('/api/reportes_empresariales/cuentaBancos', empresarialesCuentaBancos);
 
 
 
