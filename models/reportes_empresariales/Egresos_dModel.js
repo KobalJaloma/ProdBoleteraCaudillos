@@ -3,7 +3,8 @@ import reportesEmpresariales from "../../config/ReportesEmpresarialesDb.js";
 
 const Egreso_d = reportesEmpresariales.define('egresos_d', {
     id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
     descripcion: {
         type: DataTypes.STRING

@@ -5,10 +5,11 @@ const Egreso = reportesEmpresariales.define('egresos', {
     egreso: {
         type: DataTypes.INTEGER
     },
-    id_egresos: {
-        type: DataTypes.INTEGER
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
-    fecha: {
+    fecha: {                                                                                                                                                                                                                                                                                                                                
         type: DataTypes.STRING
     },
     fk_sucursal: {

@@ -5,8 +5,9 @@ const Empresa = reportesEmpresariales.define('empresas', {
     nombre: {
         type: DataTypes.STRING
     },
-    id_empresa: {
-        type: DataTypes.INTEGER
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
     }
 });
 

@@ -2,8 +2,9 @@ import { DataTypes } from "sequelize";
 import reportesEmpresariales from "../../config/ReportesEmpresarialesDb.js";
 
 const Ingreso = reportesEmpresariales.define('ingresos', {
-    id_ingresos: {
-        type: DataTypes.INTEGER
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
     },
     fecha: {
         type: DataTypes.STRING
