@@ -118,7 +118,6 @@ export const getTicketsByUsuarioEscaneado = async(req, res) => {
     }
 }
 
-
 export const updateTicketsEnvio = async(req, res) => {
     try {
         const ticket = await Ticket.update(
@@ -167,7 +166,6 @@ export const updateTicketsQuemar = async(req, res) => {
     }
 }
 
-
 export const createTickets = async(req, res) => {
     //SE NECESITA ENVIAR UN POST CON CANTIDAD Y EVENTO PARA LA GENERACION MASIVA
     try {
@@ -202,7 +200,7 @@ export const createTickets = async(req, res) => {
                 fk_usuarioCap: usuario,
                 fk_usuarioEscaneado:  0
             };
-            const ticket = await Ticket.create(payload);
+            await Ticket.create(payload);
         }
         res.json({
             "message" : "Se Crearon Los Tickets Con Exito",

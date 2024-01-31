@@ -24,6 +24,7 @@ import { reportes } from './routes/ReportesRoutes.js';
 import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
 import { empresas } from './routes/EmpresasRoutes.js';
+import { ticketsReutilizables } from "./routes/TicketsReutilizablesRoutes.js";
 
 
 //REPORTES EMPRESARIALES ROUTES
@@ -86,6 +87,7 @@ app.use('/api/reportes', reportes);
 app.use('/api/email', email);
 app.use('/api/ticketsEnvios', ticketsEnvios);
 app.use('/api/empresas', empresas);
+app.use('/api/ticketsReutilizables', ticketsReutilizables);
 
 //RUTAS DE REPORTES EMPRESARIALES
 // app.use('/api/reportes_empresariales/empresas', empresarialesEmpresas);
