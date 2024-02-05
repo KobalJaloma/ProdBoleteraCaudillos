@@ -8,6 +8,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
+import multer from "multer";
 
 //Variables de entorno
 import { config } from './config.js'; 
@@ -27,10 +28,26 @@ import { empresas } from './routes/EmpresasRoutes.js';
 
 
 //REPORTES EMPRESARIALES ROUTES
-import { empresarialesEmpresas } from "./routes/reportes_empresariales/EmpresasRoutes.js";
-import { empresarialesSucursales } from "./routes/reportes_empresariales/SucursalesRoutes.js";
-import { empresarialesCuentaBancos } from "./routes/reportes_empresariales/Cuenta_bancosRoutes.js";
+// import { empresarialesEmpresas } from "./routes/reportes_empresariales/EmpresasRoutes.js";
+// import { empresarialesSucursales } from "./routes/reportes_empresariales/SucursalesRoutes.js";
+// import { empresarialesCuentaBancos } from "./routes/reportes_empresariales/Cuenta_bancosRoutes.js";
 
+
+//CONFIGURACION DE MULTER PARA SUBIDA DE ARCHIVOS
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/layoutTickets/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+const upload = multer({
+    storage, 
+    limits: { fileSize: 10 * 1024 * 1024 }
+});
 
 
 const credentials = {
@@ -87,10 +104,16 @@ app.use('/api/email', email);
 app.use('/api/ticketsEnvios', ticketsEnvios);
 app.use('/api/empresas', empresas);
 
+
+app.post('/api/upload', upload.single('image'), (req, res) => {
+    console.log(req.file);
+    res.send('Archivo de imagen almacenado correctamento');
+});
+
 //RUTAS DE REPORTES EMPRESARIALES
-app.use('/api/reportes_empresariales/empresas', empresarialesEmpresas);
-app.use('/api/reportes_empresariales/sucursales', empresarialesSucursales);
-app.use('/api/reportes_empresariales/cuentaBancos', empresarialesCuentaBancos);
+// app.use('/api/reportes_empresariales/empresas', empresarialesEmpresas);
+// app.use('/api/reportes_empresariales/sucursales', empresarialesSucursales);
+// app.use('/api/reportes_empresariales/cuentaBancos', empresarialesCuentaBancos);
 
 
 
