@@ -25,6 +25,7 @@ import { reportes } from './routes/ReportesRoutes.js';
 import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
 import { empresas } from './routes/EmpresasRoutes.js';
+import { ticketsReutilizables } from "./routes/TicketsReutilizablesRoutes.js";
 
 
 //REPORTES EMPRESARIALES ROUTES
@@ -103,6 +104,7 @@ app.use('/api/reportes', reportes);
 app.use('/api/email', email);
 app.use('/api/ticketsEnvios', ticketsEnvios);
 app.use('/api/empresas', empresas);
+app.use('/api/ticketsReutilizables', ticketsReutilizables);
 
 
 app.post('/api/upload', upload.single('image'), (req, res) => {
@@ -114,11 +116,14 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
 // app.use('/api/reportes_empresariales/empresas', empresarialesEmpresas);
 // app.use('/api/reportes_empresariales/sucursales', empresarialesSucursales);
 // app.use('/api/reportes_empresariales/cuentaBancos', empresarialesCuentaBancos);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 98b579ffa59ef2a9393e4cbb286c712e380ecd9b
 
 
 //TEST DE RUTAS
-app.get('/api/test', (req, res) => {
+app.get('/api/test', (req, res) => { 
     res.send(`'Hello world' ${config.DB_NAME} ${config.DB_USER} ${config.DB_PASSWORD}`);
 });
 //REDIRECCIONAR EN RUTAS DESCONOCIDAS
@@ -128,11 +133,12 @@ app.get('*', function(req, res){
 // app.use('*', ()=> {
     // })
     
-    //VERIFICAR ESTATUS DE LA CONEXION
-    try {
-        db.authenticate()
-        .then( response => console.log('Conexion exitosa'));
-    } catch (error) {
+
+//VERIFICAR ESTATUS DE LA CONEXION
+try {
+    db.authenticate()
+    .then( response => console.log('Conexion exitosa'));
+} catch (error) {
     console.log(`el error de conexion es ${error}`);
 }
 
@@ -147,3 +153,5 @@ app.listen(config.PORT, (res, req) => {
 httpServer.listen(80, () => {
     console.log('Escuchando puerto 80');
 });
+
+
