@@ -84,16 +84,10 @@ app.use('/api/tickets', tickets);
 app.use('/api/permisos', permisos);
 app.use('/api/generarQr', Qrs);
 app.use('/api/reportes', reportes);
-app.use('/api/email', email);
+app.use('/api/email', email); //desabilitado por fallas
 app.use('/api/ticketsEnvios', ticketsEnvios);
 app.use('/api/empresas', empresas);
 app.use('/api/ticketsReutilizables', ticketsReutilizables);
-
-//RUTAS DE REPORTES EMPRESARIALES
-// app.use('/api/reportes_empresariales/empresas', empresarialesEmpresas);
-// app.use('/api/reportes_empresariales/sucursales', empresarialesSucursales);
-// app.use('/api/reportes_empresariales/cuentaBancos', empresarialesCuentaBancos);
-
 
 //TEST DE RUTAS
 app.get('/api/test', (req, res) => { 
