@@ -1,11 +1,12 @@
 import express from 'express';
 
 import {createTickets, getTickets, getTicketsEnvio, getTicketInfo, getTicketsEvento, getTicketsEscaneados,
-    getTicketsByUsuarioEscaneado, updateTicketsEnvio, updateTicketsQuemar} from '../controllers/TicketController.js';
+    getTicketsByUsuarioEscaneado, updateTicketsEnvio, updateTicketsQuemar, getTicketsQr} from '../controllers/TicketController.js';
 
 export const tickets = express.Router();
 
 tickets.get('/', getTickets);
+tickets.get('/qr', getTicketsQr); //regresa las base 64 del ticket
 tickets.get('/ticket/', getTicketInfo);
 tickets.get('/evento/:id', getTicketsEvento);
 tickets.get('/escaneado', getTicketsEscaneados);

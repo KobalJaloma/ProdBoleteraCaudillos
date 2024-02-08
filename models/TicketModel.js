@@ -11,6 +11,9 @@ const Ticket = db.define('tickets',{
     estatus_envio: {
         type : DataTypes.INTEGER
     },
+    codigo_qr: {
+        type: DataTypes.STRING
+    },
     fk_evento : {
         type: DataTypes.BIGINT
     },
