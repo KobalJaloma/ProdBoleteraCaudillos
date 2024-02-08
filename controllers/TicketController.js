@@ -1,5 +1,7 @@
 import Ticket from "../models/TicketModel.js";
 import Evento from "../models/EventosModel.js";
+import { crearQrPng } from "../helpers/crearQr.js";
+import { encriptarPassword } from "../helpers/passwordEncript.js";
 import { Sequelize } from "sequelize";
 
 export const getTickets = async(req, res) => {
@@ -118,6 +120,34 @@ export const getTicketsByUsuarioEscaneado = async(req, res) => {
     }
 }
 
+export const getTicketsQr = async(req, res) => {
+    
+    console.log(req.query);
+    const { evento, limit, offset} = req.query;
+
+    try {
+        const tickets = await Ticket.findAll({
+            attributes: ['codigo_qr'],
+            where: {
+                fk_evento: evento
+            },
+            limit: limit ? parseInt(limit) : 100000,
+            offset: offset ? parseInt(offset) : 0
+        });
+
+        var ticketsArray = [];
+
+        tickets.map(( {codigo_qr} ) => ticketsArray.push(codigo_qr));
+
+        res.json(ticketsArray);
+    } catch (error) {
+        res.json({
+            estatus: 'FAIL',
+            message: error
+        });
+    }
+}
+
 export const updateTicketsEnvio = async(req, res) => {
     try {
         const ticket = await Ticket.update(
@@ -192,10 +222,17 @@ export const createTickets = async(req, res) => {
         for (let index = 1; index <= cantidad; index++) {
             //generacion de clave de ticket
             const ticketCode = `${evento}${simbolosBoleto}${ existencia != 0 ? index + codigoActual : index }`; //si hay tickets en existencia se guardaran desde 0 si no, desde el ultimo codigo unico en adelante
+            
+            const ticketEncode = encriptarPassword(ticketCode);
+            var qrBase64 = await crearQrPng(ticketEncode);
+            
+            console.log(qrBase64);
+            
             const payload = {
-                codigo: ticketCode,
+                codigo: ticketEncode,
                 estatus: 1,
                 estatus_envio: 1,
+                codigo_qr: qrBase64 || '',
                 fk_evento: `${evento}`,
                 fk_usuarioCap: usuario,
                 fk_usuarioEscaneado:  0
