@@ -232,11 +232,12 @@ export const createTickets = async(req, res) => {
                 codigo: ticketEncode,
                 estatus: 1,
                 estatus_envio: 1,
-                codigo_qr: qrBase64 || '',
+                codigo_qr: qrBase64 || 'NOT CREATE',
                 fk_evento: `${evento}`,
                 fk_usuarioCap: usuario,
                 fk_usuarioEscaneado:  0
             };
+            console.log(payload);
             await Ticket.create(payload);
         }
         res.json({
