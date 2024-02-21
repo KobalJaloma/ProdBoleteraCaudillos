@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/db.js';
 
-const Permiso = db.define('permisos', {
+export const Permiso = db.define('permisos', {
     estatus: {
         type : DataTypes.INTEGER
     },

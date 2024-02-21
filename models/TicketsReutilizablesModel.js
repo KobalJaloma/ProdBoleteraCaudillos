@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const TicketsReutilizables = db.define('tickets_reutilizables', {
+export const TicketsReutilizables = db.define('tickets_reutilizables', {
     codigo: {
         type: DataTypes.STRING
     },

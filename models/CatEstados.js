@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const Estado = db.define('cat_estados', {
+export const Estado = db.define('cat_estados', {
     nombre: {
         type: DataTypes.STRING
     },

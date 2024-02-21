@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/db.js';
 
-const TicketEnvio = db.define('tickets_envios', {
+export const TicketEnvio = db.define('tickets_envios', {
     fk_evento: {
         type: DataTypes.INTEGER
     },

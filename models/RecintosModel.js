@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/db.js';
 
-const Recinto = db.define('recintos', {
+export const Recinto = db.define('recintos', {
     nombre: {
         type : DataTypes.STRING
     },

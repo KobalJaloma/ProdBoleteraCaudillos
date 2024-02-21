@@ -13,4 +13,3 @@ export const evaluarEncriptacion = (password, hash) => {
 
     return match;
 }
-

@@ -8,9 +8,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
+import multer from "multer";
+import bodyParser from "body-parser";
 
 //Variables de entorno
 import { config } from './config.js'; 
+
+//MIGRACIONES
+import { syncMigrations } from "./migrations/index.js";
 
 //ROUTERS
 import { usuarios } from './routes/UserRoute.js';
@@ -21,17 +26,25 @@ import { tickets } from './routes/TicketsRoutes.js';
 import { permisos } from "./routes/PermisosRoutes.js";
 import { Qrs } from './routes/QrRoutes.js';
 import { reportes } from './routes/ReportesRoutes.js';
-import { email } from './routes/MailerRoutes.js';
+// import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
 import { empresas } from './routes/EmpresasRoutes.js';
 import { ticketsReutilizables } from "./routes/TicketsReutilizablesRoutes.js";
+import { clientes } from "./routes/ClientesRoutes.js";
 
-
-//REPORTES EMPRESARIALES ROUTES
-// import { empresarialesEmpresas } from "./routes/reportes_empresariales/EmpresasRoutes.js";
-// import { empresarialesSucursales } from "./routes/reportes_empresariales/SucursalesRoutes.js";
-// import { empresarialesCuentaBancos } from "./routes/reportes_empresariales/Cuenta_bancosRoutes.js";
-
+//CONFIGURACION DE MULTER PARA SUBIDA DE ARCHIVOS
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/layoutTickets/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+const upload = multer({
+    storage, 
+    limits: { fileSize: 10 * 1024 * 1024 }
+});
 
 
 const credentials = {
@@ -44,6 +57,11 @@ const credentials = {
 const app = express();
 app.use(cors());
 app.use(express.json());
+syncMigrations(); //SINCRONIZA LOS CAMBIOS HECHOS EN LOS MODELOS
+
+// Configurar bodyParser para manejar solicitudes con payloads grandes
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
 //importar el dirname
@@ -73,6 +91,7 @@ const swaggerSpecifi = {
     },
     apis: [`${path.join(__dirname,'./routes/*.js')}`]
 }
+
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpecifi)));
 
 //RUTAS DE LOS CONTROLADORES
@@ -84,15 +103,23 @@ app.use('/api/tickets', tickets);
 app.use('/api/permisos', permisos);
 app.use('/api/generarQr', Qrs);
 app.use('/api/reportes', reportes);
-app.use('/api/email', email); //desabilitado por fallas
 app.use('/api/ticketsEnvios', ticketsEnvios);
 app.use('/api/empresas', empresas);
 app.use('/api/ticketsReutilizables', ticketsReutilizables);
+app.use('/api/clientes', clientes);
+// app.use('/api/email', email); //desabilitado por fallas
+
+
+app.post('/api/upload', upload.single('image'), (req, res) => {
+    console.log(req.file);
+    res.send('Archivo de imagen almacenado correctamento');
+});
 
 //TEST DE RUTAS
 app.get('/api/test', (req, res) => { 
     res.send(`'Hello world' ${config.DB_NAME} ${config.DB_USER} ${config.DB_PASSWORD}`);
 });
+
 //REDIRECCIONAR EN RUTAS DESCONOCIDAS
 app.get('*', function(req, res){
     res.status(404).redirect('/');

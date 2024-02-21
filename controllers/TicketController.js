@@ -233,6 +233,7 @@ export const createTickets = async(req, res) => {
                 estatus: 1,
                 estatus_envio: 1,
                 codigo_qr: qrBase64 || 'NOT CREATE',
+                codigo_qr: qrBase64 || '',
                 fk_evento: `${evento}`,
                 fk_usuarioCap: usuario,
                 fk_usuarioEscaneado:  0
