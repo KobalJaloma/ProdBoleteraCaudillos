@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import db from '../config/db.js';
 
-const Usuario = db.define('usuarios', {
+export const Usuario = db.define('usuarios', {
     nombreUsuario: {
         type : DataTypes.STRING,
         unique: true

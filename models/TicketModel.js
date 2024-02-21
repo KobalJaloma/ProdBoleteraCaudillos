@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/db.js';
 
-const Ticket = db.define('tickets',{
+export const Ticket = db.define('tickets',{
     codigo: {
         type: DataTypes.STRING
     },

@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/db.js';
 
-const Evento = db.define('eventos', {
+export const Evento = db.define('eventos', {
     nombre: {
         type : DataTypes.STRING
     },

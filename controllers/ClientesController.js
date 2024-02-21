@@ -8,8 +8,33 @@ export const getCliente = async(req, res) => {
         if(!!querys) 
             atributos = querys.split(',');
         const clientes = await Clientes.findAll({
-
+            attributes: !!atributos ? atributos : []
         });
+
+        res.json(clientes);
+    } catch (error) {
+        
+    }
+}
+
+export const getClienteId = async(req, res) => {
+    const querys = req.query.atributos;
+    const id = req.params.id;
+    console.log(id);
+    var atributos;
+
+    try {
+        if(!!querys) 
+            atributos = querys.split(',');
+
+        const cliente = await Clientes.findAll({
+            attributes: !!atributos ? atributos : [],
+            where: {
+                id: id 
+            }
+        });
+        console.log(cliente);
+        res.json(cliente);
     } catch (error) {
         
     }

@@ -1,10 +1,11 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const Clientes = db.define('Clientes', {
+export const Clientes = db.define('clientes', {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true
+        autoIncrement: true,
+        primaryKey: true
     },
     nombre: {
         type: DataTypes.STRING,
@@ -20,7 +21,7 @@ const Clientes = db.define('Clientes', {
     },
     imagen_perfil: {
         type: DataTypes.STRING
-    },
+    }
 })
 
 export default Clientes;
