@@ -13,7 +13,10 @@ export const getCliente = async(req, res) => {
 
         res.json(clientes);
     } catch (error) {
-        
+        res.json({
+            estatus: 'FAIL',
+            message: 'Hubo un error en la creacion de cliente'
+        });
     }
 }
 
@@ -36,7 +39,10 @@ export const getClienteId = async(req, res) => {
         console.log(cliente);
         res.json(cliente);
     } catch (error) {
-        
+        res.json({
+            estatus: 'FAIL',
+            message: 'Hubo un error en traer el cliente'
+        });
     }
 }
 
@@ -53,7 +59,7 @@ export const createClientes = async(req, res) => {
     } catch (error) {
         res.json({
             estatus: 'FAIL',
-            message: 'Hubo un error en la creacion de la empresa'
+            message: 'Hubo un error en la creacion de cliente'
         });
     }
 }
