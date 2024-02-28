@@ -35,7 +35,7 @@ import { clientes } from "./routes/ClientesRoutes.js";
 //CONFIGURACION DE MULTER PARA SUBIDA DE ARCHIVOS
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/layoutTickets/');
+        cb(null, './public/uploads');
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname);
@@ -110,7 +110,9 @@ app.use('/api/clientes', clientes);
 // app.use('/api/email', email);
 
 
-app.post('/api/upload', upload.single('image'), (req, res) => {
+app.post('/api/upload', upload.single('file'), (req, res) => {
+    if(!req.file)
+        return res.status(400).send('No file Upload')
     console.log(req.file);
     res.send('Archivo de imagen almacenado correctamento');
 });
