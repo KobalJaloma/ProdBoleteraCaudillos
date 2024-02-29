@@ -32,19 +32,14 @@ import { empresas } from './routes/EmpresasRoutes.js';
 import { ticketsReutilizables } from "./routes/TicketsReutilizablesRoutes.js";
 import { clientes } from "./routes/ClientesRoutes.js";
 
-//CONFIGURACION DE MULTER PARA SUBIDA DE ARCHIVOS
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './public/uploads');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-const upload = multer({
-    storage, 
-    limits: { fileSize: 10 * 1024 * 1024 }
-});
+
+// app.post('/api/upload', upload.single('file'), (req, res) => {
+//     if(!req.file)
+//         return res.status(400).send('No file Upload')
+//     console.log(req.file);
+//     console.log(JSON.parse(req.body.jsonData));
+//     res.send('Archivo de imagen almacenado correctamento');
+// });
 
 
 const credentials = {
@@ -109,13 +104,6 @@ app.use('/api/ticketsReutilizables', ticketsReutilizables);
 app.use('/api/clientes', clientes);
 // app.use('/api/email', email);
 
-
-app.post('/api/upload', upload.single('file'), (req, res) => {
-    if(!req.file)
-        return res.status(400).send('No file Upload')
-    console.log(req.file);
-    res.send('Archivo de imagen almacenado correctamento');
-});
 
 //TEST DE RUTAS
 app.get('/api/test', (req, res) => { 

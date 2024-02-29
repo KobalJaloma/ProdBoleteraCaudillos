@@ -21,6 +21,9 @@ export const Clientes = db.define('clientes', {
     },
     imagen_perfil: {
         type: DataTypes.STRING
+    },
+    codigo_qr: {
+        type: DataTypes.STRING
     }
 })
 

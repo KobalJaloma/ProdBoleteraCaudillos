@@ -1,4 +1,5 @@
 import Clientes from '../models/ClientesModel.js';
+import { encriptarPassword } from "../helpers/passwordEncript.js";
 
 export const getCliente = async(req, res) => {
     const querys = req.query.atributos;
@@ -40,10 +41,30 @@ export const getClienteId = async(req, res) => {
     }
 }
 
-
 export const createClientes = async(req, res) => {
     try {
-        await Clientes.create(req.body);
+        const { path } = req.file;
+
+        const data = JSON.parse(req.body.jsonData);
+        console.log(data);
+
+        const payload = {
+            ...data, 
+            imagen_perfil: path.substr('7') //quitar public de la ruta 
+        }
+        
+        const clientePromise = await Clientes.create(payload);
+
+        const clienteId = clientePromise.id;
+        const hashChars = '!?@$?';
+        const uniqueCode = `${clienteId}${hashChars}${data.nombre}`;
+        const hashCode = await encriptarPassword(uniqueCode);
+
+        await Clientes.update({ codigo_qr: hashCode }, {
+            where: {
+                id: clienteId
+            }
+        });
 
         res.json({
             estatus: 'OK',
@@ -53,7 +74,34 @@ export const createClientes = async(req, res) => {
     } catch (error) {
         res.json({
             estatus: 'FAIL',
-            message: 'Hubo un error en la creacion de la empresa'
+            message: 'Hubo un error en la creacion del cliente',
+            error
+        });
+    }
+}
+
+export const updateCliente = async(req, res) => {
+
+    const { id } = req.params
+
+    const payload = req.body;
+
+    try {
+        await Clientes.update(payload, {
+            where: {
+                id: id
+            }
+        });
+
+        res.json({
+            estatus: 'OK',
+            message: 'Los Datos Se Actualizaron Con Exito'
+        });
+    } catch (error) {
+        res.json({
+            estatus: 'FAIL',
+            message: 'Hubo Un Error En La Actualizacion De Datos',
+            error
         });
     }
 }
