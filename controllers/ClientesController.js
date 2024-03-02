@@ -41,6 +41,30 @@ export const getClienteId = async(req, res) => {
     }
 }
 
+export const getClienteCodigo = async(req, res) => {
+    const querys = req.query.atributos;
+    const codigo = req.query.codigo;
+    console.log(codigo);
+    console.log(req.query);
+    var atributos;
+
+    try {
+        if(!!querys) 
+            atributos = querys.split(',');
+
+        const cliente = await Clientes.findAll({
+            attributes: !!atributos ? atributos : [],
+            where: {
+                codigo_qr: codigo 
+            }
+        });
+        console.log(cliente);
+        res.json(cliente);
+    } catch (error) {
+        
+    }
+}
+
 export const createClientes = async(req, res) => {
     try {
         const { path } = req.file;
