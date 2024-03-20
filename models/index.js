@@ -9,4 +9,6 @@ export * from './CatEstados.js';
 export * from './CatPaises.js';
 export * from './ClientesModel.js';
 export * from './TicketsEnviosModel.js';
-export * from './TicketsReutilizablesModel.js';
+export * from './GafetesModel.js';
+export * from './ZonasRecintosModel.js';
+export * from './EscaneosBitacoraModel.js';

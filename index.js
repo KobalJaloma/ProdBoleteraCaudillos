@@ -29,9 +29,9 @@ import { reportes } from './routes/ReportesRoutes.js';
 // import { email } from './routes/MailerRoutes.js';
 import { ticketsEnvios } from './routes/TicketsEnviosRoutes.js';
 import { empresas } from './routes/EmpresasRoutes.js';
-import { ticketsReutilizables } from "./routes/TicketsReutilizablesRoutes.js";
 import { clientes } from "./routes/ClientesRoutes.js";
-
+import { escaneosBitacora } from "./routes/EscaneosBitacoraRoutes.js";
+import { zonasRecintos } from "./routes/ZonasRecintosRoutes.js";
 
 // app.post('/api/upload', upload.single('file'), (req, res) => {
 //     if(!req.file)
@@ -100,8 +100,9 @@ app.use('/api/generarQr', Qrs);
 app.use('/api/reportes', reportes);
 app.use('/api/ticketsEnvios', ticketsEnvios);
 app.use('/api/empresas', empresas);
-app.use('/api/ticketsReutilizables', ticketsReutilizables);
 app.use('/api/clientes', clientes);
+app.use('/api/zonasRecintos', zonasRecintos);
+app.use('/api/escaneosBitacora', escaneosBitacora);
 // app.use('/api/email', email);
 
 

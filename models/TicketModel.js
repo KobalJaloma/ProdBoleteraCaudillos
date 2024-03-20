@@ -12,7 +12,7 @@ export const Ticket = db.define('tickets',{
         type : DataTypes.INTEGER
     },
     codigo_qr: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
     },
     fk_evento : {
         type: DataTypes.BIGINT

@@ -9,8 +9,8 @@ import {
     Recinto,
     Ticket,
     TicketEnvio, 
-    TicketsReutilizables,
-    Usuario
+    Usuario,
+    Gafete
 } from '../models/index.js';
 
 export const syncMigrations = async() => {
@@ -25,8 +25,8 @@ export const syncMigrations = async() => {
         await Recinto.sync({alter: true});
         await Ticket.sync({alter: true});
         await TicketEnvio.sync({alter: true});
-        await TicketsReutilizables.sync({alter: true});
         await Usuario.sync({alter: true});
+        await Gafete.sync({alter: true});
     } catch (error) {
         console.log("Error en las migraciones: " + error);
     }
