@@ -1,4 +1,4 @@
-import { createClientes, getCliente, getClienteId, getClienteCodigo} from '../controllers/ClientesController.js';
+import { createClientes, getCliente, getClienteId, getClienteCodigo, quemarCliente} from '../controllers/ClientesController.js';
 import { multerHelper } from '../helpers/uploadImages.js'
 import express from "express";
 
@@ -9,3 +9,6 @@ clientes.get('/', getCliente);
 clientes.get('/codigo', getClienteCodigo);
 
 clientes.post('/', multerHelper('./public/uploads/clientes/perfil', null) , createClientes);
+
+
+clientes.put('/codigo', quemarCliente);

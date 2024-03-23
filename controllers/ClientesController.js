@@ -1,5 +1,6 @@
 import Clientes from '../models/ClientesModel.js';
 import { encriptarPassword } from "../helpers/passwordEncript.js";
+import { errorResponse, failResponse, successResponse } from "../types/jsonResponses.js";
 
 export const getCliente = async(req, res) => {
     const querys = req.query.atributos;
@@ -127,5 +128,29 @@ export const updateCliente = async(req, res) => {
             message: 'Hubo Un Error En La Actualizacion De Datos',
             error
         });
+    }
+}
+
+export const quemarCliente = async(req, res) => {
+    try {
+        const { codigo, cliente } = req.body;
+
+        if(!codigo) return res.json(failResponse("No Se Recibio El Codigo"));
+        if(!cliente) return res.json(failResponse("No Se Recibio El Cliente"));
+         
+        const payload = {
+            usado: 1 //temporal
+        }
+        await Clientes.update(payload, {
+            where: {
+                id: cliente,
+                codigo_qr: codigo
+            }
+        });
+
+        res.json(successResponse("Tu Cliente Se Guardo"))
+
+    } catch (error) {
+        res.json(errorResponse(null, error))
     }
 }

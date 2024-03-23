@@ -19,6 +19,9 @@ export const Clientes = db.define('clientes', {
     correo: {
         type: DataTypes.STRING
     },
+    usado: {
+        type: DataTypes.INTEGER //Temporal
+    },
     imagen_perfil: {
         type: DataTypes.STRING
     },
