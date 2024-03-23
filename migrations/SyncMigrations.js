@@ -27,6 +27,8 @@ export const syncMigrations = async() => {
         await TicketEnvio.sync({alter: true});
         await Usuario.sync({alter: true});
         await Gafete.sync({alter: true});
+
+        console.log("Se Sincronizaron Las Migraciones");
     } catch (error) {
         console.log("Error en las migraciones: " + error);
     }

@@ -43,3 +43,26 @@ export const createZona = async(req, res) => {
         res.json(errorResponse(null, error));
     }
 }
+
+export const createZonas = async(req, res) => {
+    try {
+        const object = req.body;
+        const recinto = object.recinto;
+        const zonas = object.zonas;
+
+        if(!id || !zonas)   
+            return res.json(failResponse(`Los Requerimeintos Son incompletos`, 'INCOMPLETO', 'NOT'));
+
+        const payload = zonas.map((value) => { 
+            return {
+                zona: value.zona, 
+                descripcion: value.description,
+                fk_evento:  recinto.id,
+                
+            }
+        });
+
+    } catch (error) {
+        res.json(successResponse(null, error));
+    }
+}
