@@ -133,10 +133,7 @@ try {
 
 //PROTOCOLOS DE LA WEB
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, (req, res)=> {
-    res.write(200);
-    res.end('Hola desde HTTPS')
-});
+const httpsServer = https.createServer(credentials, app);
 
 app.listen(config.PORT, (res, req) => {
     console.log(`Escuchando el puerto ${config.PORT} para el API`);
