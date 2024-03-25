@@ -42,12 +42,6 @@ import { zonasRecintos } from "./routes/ZonasRecintosRoutes.js";
 // });
 
 
-const credentials = {
-    key: '',
-    cert: '',
-    ca: ''
-}
-
 //app config
 const app = express();
 app.use(cors());
@@ -69,6 +63,16 @@ app.use('/', express.static(path.resolve(__dirname, './public')));
 app.use('/.well-known/acme-challenge/AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI', (req, res) => {
     res.send('AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI.EFZKts6_MGJTQ9yIM_Z1Nj-wabvsb2ZXuTo8uLh_hR4');
 })
+
+
+// Certificate is saved at: /etc/letsencrypt/live/elboletero.mx/fullchain.pem
+// Key is saved at:         /etc/letsencrypt/live/elboletero.mx/privkey.pem
+
+//certificado SSL
+const credentials = {
+    key: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/privkey.pem'),
+    certificate: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/fullchain.pem')
+}
 
 //SWAGGER CONFIGURACIONES - UI DE EL API
 const swaggerSpecifi = {
@@ -134,6 +138,10 @@ const httpsServer = https.createServer(credentials, app);
 app.listen(config.PORT, (res, req) => {
     console.log(`Escuchando el puerto ${config.PORT} para el API`);
 });
+
+httpsServer.listen(443, () => {
+    console.log('escuchando el puerto 443')
+})
 
 httpServer.listen(80, () => {
     console.log('Escuchando puerto 80');
