@@ -133,7 +133,7 @@ try {
 
 //PROTOCOLOS DE LA WEB
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, ()=> {
+const httpsServer = https.createServer(credentials, (req, res)=> {
     res.write(200);
     res.end('Hola desde HTTPS')
 });
