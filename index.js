@@ -70,8 +70,8 @@ app.use('/.well-known/acme-challenge/AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI
 
 //certificado SSL
 const credentials = {
-    key: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/privkey.pem'),
-    certificate: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/fullchain.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/privkey.pem', 'utf8'),
+    certificate: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/fullchain.pem', 'utf8')
 }
 
 //SWAGGER CONFIGURACIONES - UI DE EL API
