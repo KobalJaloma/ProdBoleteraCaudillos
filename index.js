@@ -71,7 +71,7 @@ app.use('/.well-known/acme-challenge/AEcakqjlc9xx4xPg97WCzHbzNwdZ8tJpfuWAStfsNOI
 //certificado SSL
 const credentials = {
     key: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/privkey.pem', 'utf8'),
-    certificate: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/fullchain.pem', 'utf8')
+    cert: fs.readFileSync('/etc/letsencrypt/live/elboletero.mx/fullchain.pem', 'utf8')
 }
 
 //SWAGGER CONFIGURACIONES - UI DE EL API
@@ -133,7 +133,10 @@ try {
 
 //PROTOCOLOS DE LA WEB
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+const httpsServer = https.createServer(credentials, ()=> {
+    res.write(200);
+    res.end('Hola desde HTTPS')
+});
 
 app.listen(config.PORT, (res, req) => {
     console.log(`Escuchando el puerto ${config.PORT} para el API`);
